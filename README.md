@@ -23,5 +23,6 @@ Overview:
 - If the puzzle is solved, the player should see the original picture, combined with the amount of moves it
   took him to solve the puzzle.
   
-In-built functionalities:
+Functionalities that use in-built frameworks, libraries, or other technologies
+- 
 - 
