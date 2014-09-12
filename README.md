@@ -29,3 +29,4 @@ Functionalities that use in-built frameworks, libraries, or other technologies
 - Displaying, resizing, manipulating pictures
 - Radio buttons, lists, buttons, options dialog
 - Handling of screentouch in different places of the screen
+- Persistence
