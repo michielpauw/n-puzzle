@@ -5,7 +5,6 @@ Classes and methods
 
 - View
   - setOnClickListener(View view)
-  - 
 - LinearLayout
 - Button
 
