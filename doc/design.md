@@ -5,5 +5,10 @@ Classes and methods
 
 - View
   - setOnClickListener(View view)
+  - 
+- LinearLayout
+- Button
 
-Frameworks
+Packages
+- android.view
+- android.widget
