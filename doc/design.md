@@ -2,40 +2,46 @@ n-puzzle design
 ========
 
 Classes and methods
-
+- R
 - View
-  - setOnClickListener(View view)
-  - getId
-  - setId(int n)
+  - void - setOnClickListener(View view)
+  - int - getId
+  - void - setId(int n)
 - LinearLayout
-  - addView(View view)
-  - removeView (View view)
-  - removeViewAt(View view)
+  - void - addView(View view)
+  - void - removeView (View view)
+  - void - removeViewAt(View view)
 - Button
 - ListView
 - ListActivity
+  - ListView - getListView()
+  - void - setListAdapter(ListAdapter)
 - ArrayAdapter
-  -getListView()
-  -setListAdapter(ListAdapter)
 - BitmapFactory
-  - decodeResource(Resources res, int id)
+  - static Bitmap - decodeResource(Resources res, int id)
 - Context
-  - getResources()
+  - abstract Resources - getResources()
 - Bitmap
-  - createScaledBitmap(Bitmap bitmap, int width, int height, boolean filter)
-  - createBitmap(Bitmap bitmap, int x, int y, int width, int height)
+  - static Bitmap - createScaledBitmap(Bitmap bitmap, int width, int height, boolean filter)
+  - static Bitmap - createBitmap(Bitmap bitmap, int x, int y, int width, int height)
 - Resources
-  - getDisplayMetrics()
+  - DisplayMetrics - getDisplayMetrics()
 - TableLayout
 - RelativeLayout
 - Intent
 - Activity(.super)
-  - onPause()
-  - onResume()
-  - onCreate()
-  - getPreferences(int)
+  - void - onPause()
+  - void - onResume()
+  - void - onCreate()
+  - SharedPreferences - getPreferences(int)
+  - Boolean - onCreateOptionsMenu(Menu menu)
+  - Boolean - onOptionsItemSelected(Menu item)
 - SharedPreferences
-  - get<type>(String name, int value)
+  - type - get<type>(String name, int value)
+- SharedPreferences.Editor
+  - abstract boolean - commit()
+  - abstract SharedPreferences.Editor - put<type>(String name, int value)
+- MenuInflater
 
 Packages
 - android.view
@@ -47,3 +53,4 @@ Packages
 Resources
 - layouts
 - drawable
+- menu
