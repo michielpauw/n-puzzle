@@ -1,7 +1,7 @@
 n-puzzle design
 ========
 
-Classes and methods
+Built-in classes and methods
 - R
 - View
   - void - setOnClickListener(View view)
@@ -34,14 +34,24 @@ Classes and methods
   - void - onResume()
   - void - onCreate()
   - SharedPreferences - getPreferences(int)
-  - Boolean - onCreateOptionsMenu(Menu menu)
-  - Boolean - onOptionsItemSelected(Menu item)
+  - boolean - onCreateOptionsMenu(Menu menu)
+  - boolean - onOptionsItemSelected(Menu item)
 - SharedPreferences
   - type - get<type>(String name, int value)
 - SharedPreferences.Editor
   - abstract boolean - commit()
   - abstract SharedPreferences.Editor - put<type>(String name, int value)
 - MenuInflater
+  - void - inflate(int menuRes, Menu menu)
+- Handler
+  - boolean postDelayed(Runnable r, long delayMillis)
+- Runnable
+  - abstract void - Run()
+
+Classes I will implement
+- PuzzleGameplay
+  - boolean - checkSolved(array order)
+  - array - setupRandomOrder(int difficulty)
 
 Packages
 - android.view
