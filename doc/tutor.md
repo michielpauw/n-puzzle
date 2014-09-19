@@ -1,0 +1,4 @@
+- Select picture without switch
+- Create table with n columns and n rows
+- Why define EXTRA_MESSAGE
+- 
