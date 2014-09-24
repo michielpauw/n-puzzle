@@ -1,14 +1,11 @@
 n-puzzle
 ========
 
-# clone repo
 git clone git@github.com:michielpauw/project0.git michielpauw
 
-# make sure all gems are there
 cd michielpauw
 bundle
 
-# start server
 rails s
 
 Notes on Beta release:
