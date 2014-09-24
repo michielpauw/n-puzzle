@@ -1,13 +1,6 @@
 n-puzzle
 ========
 
-git clone git@github.com:michielpauw/project0.git michielpauw
-
-cd michielpauw
-bundle
-
-rails s
-
 Notes on Beta release:
 - I realized a little bit late that PuzzleStart and PuzzleGame should actually be one activity.
 I will fix this before the Alpha-release, also giving me an opportunity of cleaning up the mess in
