@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">nPuzzle5789397</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_text">Pick a picture</string>
+    <string name="chopUp">Just for id</string>
+    <string name="clicked">Just for id</string>
+    <string name="pos_clicked">Just for id</string>
+    <string name="order">Just for id</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+
+    <string-array name="pictures">
+        <item>Ajax</item>
+        <item>Polder</item>
+        <item>Universum</item>
+    </string-array>
+
+    <string name="title_activity_puzzle_start">PuzzleStart</string>
+    <string name="title_activity_puzzle_game">PuzzleGame</string>
+    <string name="title_activity_puzzle_start_test">PuzzleStartTest</string>
+    <string name="title_activity_puzzle_solved">PuzzleSolved</string>
+
+</resources>
