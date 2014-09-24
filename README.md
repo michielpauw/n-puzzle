@@ -1,6 +1,26 @@
 n-puzzle
 ========
 
+# clone repo
+git clone git@github.com:michielpauw/n-puzzle.git michielpauw
+
+# make sure all gems are there
+cd michielpauw
+bundle
+
+# start server
+rails s
+
+Notes on Beta release:
+- I realized a little bit late that PuzzleStart and PuzzleGame should actually be one activity.
+I will fix this before the Alpha-release, also giving me an opportunity of cleaning up the mess in
+both activities.
+- As of now I have not been able to implement functioning up/back buttons. I will fix this.
+- I need to create edges around my tiles.
+- My MainActivity class will display a nicer list of pictures in the Alpha-release.
+- As of now I have not been able to support pictures of which the dimensions are smaller than
+the screen size of a phone.
+
 A fun little game for Android where you're supposed to rearrange a shuffled picture to its original shape.
 
 Overview:
