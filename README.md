@@ -2,7 +2,7 @@ n-puzzle
 ========
 
 # clone repo
-git clone git@github.com:michielpauw/n-puzzle.git michielpauw
+git clone git@github.com:michielpauw/project0.git michielpauw
 
 # make sure all gems are there
 cd michielpauw
