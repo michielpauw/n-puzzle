@@ -1,0 +1,5 @@
+- Select picture without switch
+- Create table with n columns and n rows
+- Why define EXTRA_MESSAGE
+- 09-20 18:18:56.773: E/AndroidRuntime(20484): java.lang.IllegalArgumentException: Cannot draw recycled bitmaps
+- AVD doesn't work
