@@ -1,5 +1,12 @@
 n-puzzle design
 ========
+Change:
+- Remove else in createRandomArray()
+- End all Activity classes in Activity
+- Make PuzzleStart and PuzzleGame one Activity
+- Make BitmapHandler and GamePlay two classes
+- Enter white line before comment (also if every line has comment)
+- Use Correct Indentation
 
 - MainActivity
   - I've implemented a list using SimpleAdapter. This way I was able to place pictures in my list. I am not
