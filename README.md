@@ -1,16 +1,6 @@
 n-puzzle
 ========
 
-Notes on Beta release:
-- I realized a little bit late that PuzzleStart and PuzzleGame should actually be one activity.
-I will fix this before the Alpha-release, also giving me an opportunity of cleaning up the mess in
-both activities.
-- As of now I have not been able to implement functioning up/back buttons. I will fix this.
-- I need to create edges around my tiles.
-- My MainActivity class will display a nicer list of pictures in the Alpha-release.
-- As of now I have not been able to support pictures of which the dimensions are smaller than
-the screen size of a phone.
-
 A fun little game for Android where you're supposed to rearrange a shuffled picture to its original shape.
 
 Overview:
@@ -28,15 +18,16 @@ Overview:
 - The state of the game must be saved when the player quits the app or when other activities appear above it.
   I should keep in mind to save the picture chosen, the difficulty, the current arrangement of the tiles and
   the amount of moves taken.
-- The difficulty levels which can be chosen are 'Easy', 'Medium' and 'Hard' with a respective amount of tiles
-  of n=8, n=15 and n=24. The medium level is the default setting.
+- The difficulty levels which can be chosen are 'Super easy', 'Easy', 'Medium', 'Hard' and 'Super hard' 
+  with a respective amount of tiles of n=3, n=8, n=15, n=24 and n = 35. The medium level is the default setting.
 - If the puzzle is solved, the player should see the original picture, combined with the amount of moves it
   took him to solve the puzzle.
+- Navigation is only possible using the Action Bar.
   
 Functionalities that use in-built frameworks, libraries, or other technologies
 - Navigation and linking between different screens
 - Action Bar
 - Displaying, resizing, manipulating pictures
-- Radio buttons, lists, buttons, options dialog
-- Handling of screentouch in different places of the screen
+- Lists, buttons, options dialog
+- Handling of screentouch in ImageViews
 - Persistence
