@@ -23,6 +23,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 	private int tiles;
 	private boolean start = false;
 	private int[] order = new int[tiles * tiles];
+	private int moves = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,11 +162,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 
 		// get other relevant information
 		int tiles = curGame.getTiles();
-		int moves = curGame.getMoves();
 
-		// keep track of the moves
-		moves++;
-		curGame.setMoves(moves);
 		int clicked = order[pos_clicked];
 		int pos_zero = -1;
 		int n = tiles * tiles;
@@ -183,6 +180,9 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 		// if so, switch the tiles both visually and in the array
 		if (legal)
 		{
+			// keep track of the moves
+			moves++;
+
 			ImageView view_click = (ImageView) findViewById(pos_clicked);
 			Drawable clicked_on = view_click.getDrawable();
 
@@ -214,6 +214,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 		super.onPause();
 		SharedPreferences sharedPref = PuzzleGameActivity.this.getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putInt("moves", moves);
 		editor.putInt("picture", picture);
 		int n = tiles * tiles;
 		for (int i = 0; i < n; i++)
@@ -230,6 +231,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 
 		SharedPreferences sharedPref = PuzzleGameActivity.this.getPreferences(Context.MODE_PRIVATE);
 		picture = sharedPref.getInt("picture", R.drawable.ajax);
+		moves = sharedPref.getInt("moves", 0);
 		int n = tiles * tiles;
 		for (int i = 0; i < n; i++)
 		{
