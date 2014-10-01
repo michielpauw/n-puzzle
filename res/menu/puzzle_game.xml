@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/easy"
-          android:title="@string/easy" />
-    <item android:id="@+id/medium"
-          android:title="@string/medium" />
-    <item android:id="@+id/hard"
-          android:title="@string/hard" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/super_easy"
+        android:title="@string/super_easy"/>
+    <item
+        android:id="@+id/easy"
+        android:title="@string/easy"/>
+    <item
+        android:id="@+id/medium"
+        android:title="@string/medium"/>
+    <item
+        android:id="@+id/hard"
+        android:title="@string/hard"/>
+    <item
+        android:id="@+id/super_hard"
+        android:title="@string/super_hard"/>
+
 </menu>

@@ -3,20 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-    
+
     <ImageView
         android:id="@+id/picid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="2"
         android:contentDescription="@string/app_name"
-        android:paddingTop="10dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp" />
-    
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="30sp" />
+
 </LinearLayout>

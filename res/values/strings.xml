@@ -9,9 +9,16 @@
     <string name="clicked">Just for id</string>
     <string name="pos_clicked">Just for id</string>
     <string name="order">Just for id</string>
+    <string name="curGame">Just for id</string>
+    <string name="xCoordinate">Just for id</string>
+    <string name="yCoordinate">Just for id</string>
+    <string name="super_easy">Super easy</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="super_hard">Super hard</string>
+    <string name="text_main">Pick a picture</string>
+    <string name="back">Back to main</string>
 
     <string-array name="pictures">
         <item>Ajax</item>
