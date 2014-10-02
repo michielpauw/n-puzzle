@@ -23,7 +23,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 	private int tiles;
 	private boolean start = false;
 	private int[] order = new int[tiles * tiles];
-	private int moves = 0;
+	private int moves;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 			public void run() {
 				// and place the pictures in a random order
 				curGame.createRandomArray(true);
+				moves = 0;
 				order = curGame.getOrder();
 				start = true;
 				layout.removeAllViews();

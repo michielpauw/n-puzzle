@@ -6,30 +6,18 @@ import java.util.Collections;
 public class Gameplay {
 
 	private static int[] order;
-	private static int moves;
 	private static int tiles;
 
 	// constructor
 	public Gameplay(int tiles_in) {
 		tiles = tiles_in;
 		order = new int[tiles * tiles];
-		moves = 0;
 	}
 
 	// a couple of getter/setter methods
 	public int getTiles()
 	{
 		return tiles;
-	}
-
-	public int getMoves()
-	{
-		return moves;
-	}
-
-	public void setMoves(int moves_in)
-	{
-		moves = moves_in;
 	}
 
 	public void setOrder(int[] order_in)
