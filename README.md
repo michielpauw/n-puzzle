@@ -13,6 +13,7 @@ Extension option 1: create more options for the Bitmap.
 - Create the option to manipulate the Bitmaps in a number of ways, before playing the game:
   - Crop the picture manually.
   - Add a number of filters on the chosen pictures.
+- Bitmap manipulation will occur before resizing for the game, so the player has the option to save the manipulated, original picture.
 
 Functionalities that use in-built frameworks, libraries, or other technologies for my extension:
 
