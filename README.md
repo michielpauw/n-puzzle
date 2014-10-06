@@ -3,7 +3,32 @@ n-puzzle
 
 A fun little game for Android where you're supposed to rearrange a shuffled picture to its original shape.
 
-Overview:
+I propose to create either one of the following two extensions of my n-Puzzle:
+
+Extension option 1: create more options for the Bitmap.
+
+- When the player is asked to pick a picture, two more options will appear:
+  -Take a picture to use as a puzzle.
+  -Choose a picture from the library.
+- Create the option to manipulate the Bitmaps in a number of ways, before playing the game:
+  - Crop the picture manually.
+  - Add a number of filters on the chosen pictures.
+
+Functionalities that use in-built frameworks, libraries, or other technologies for my extension:
+
+- I will use the camera application to take pictures.
+- I will use the Android gallery to choose pictures from.
+- If available, I will use in-built tools to manipulate Bitmaps such that I can apply filters.
+
+Extension option 2: a musical n-Puzzle.
+
+- Instead of choosing a picture, the player can select a song/tune in the main menu.
+- After selecting the tune, the player will hear the tune from start to finish, cut up in n shorter fragments with small gaps between the fragments. The player will also see a square with n numbered tiles and one black tile in the right order. Each tile will light up when the corresponding fragment of the tune is played.
+- The tiles will be shuffled to a random, solvable state. The player can now play the game in a comparable way as the original n-puzzle. On request the song will be played in the random order it's in at that moment.
+- The puzzle is solved if all the tiles are in the right order and the song is played from start to finish.
+- The player can choose to remove the numbering on the tiles, so it becomes just a game of hearing: much more difficult.
+
+Overview of the original n-Puzzle:
 - Pick a picture you want to play the game with.
 - The picture will be shown in solved state, cut up in n equally sized tiles (n depending on the difficulty)
   with the bottom right tile missing. The picture will be displayed as large as possible with the correct
