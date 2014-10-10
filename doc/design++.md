@@ -3,7 +3,7 @@ Design Doc for my improved n-puzzle
 
 The basis of my program will be the n-puzzle which I have programmed in the last couple of weeks. Before I start working on my extension I will improve the following features:
 
-Modulation
+Modularazation
 - I will change my BitmapHandler class to a BitmapResizer class. 
 - BitmapResizer is responsible for determining the size of the picture in the screen and also the position of the top left coordinate. This way my PuzzleSolvedActivity needs less code to place the picture.
 - I will create a PuzzlePlacer class which extends BitmapResizer, so that I won't need a seperate function to place the puzzle in my PuzzleGameActivity. The method getTileSize is moved from the original BitmapHandler class.
