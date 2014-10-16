@@ -1,14 +1,19 @@
 package nl.mprog.projects.nPuzzle5789397;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -35,42 +40,46 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-		// get the intent from MainActivity
+		// get the intent from ManipulateActivity
 		Intent intent = getIntent();
 
-		// get the id of the picture that was clicked
-		picture = Integer.parseInt(intent.getStringExtra("picture"));
+		// get the id of the picture and other relevant information from ManipulateActivity
 		tiles = Integer.parseInt(intent.getStringExtra("difficulty"));
-
-		// get the display height and width
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		int height_scr = metrics.heightPixels;
-		int width_scr = metrics.widthPixels;
+		BitmapPlacer fullPicture = (BitmapPlacer) intent.getParcelableExtra("picture");
+		String uri = fullPicture.getUri();
+		
 		final RelativeLayout layout = (RelativeLayout)this.findViewById(R.id.root_layout);
 
 		// get the picture we want to use as a puzzle
-		Bitmap puzzle = BitmapFactory.decodeResource(this.getResources(), picture);
-
+		Bitmap puzzle = BitmapFactory.decodeResource(this.getResources(), R.drawable.ajax);;
+		try
+		{
+			puzzle = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse("file://" + uri));
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// get a picture of a black square which we use as the empty tile
 		Bitmap blackbox = BitmapFactory.decodeResource(this.getResources(), R.drawable.blackbox);
-
-		// create a new BitmapHandle object to help us chop up the picture
-		final BitmapHandler chopUp = new BitmapHandler(width_scr, height_scr, puzzle, tiles, blackbox);
+		
+		int width_scr = fullPicture.getWidthScr();
+		int height_scr = fullPicture.getHeightScr();
+		
+		// create a new PuzzlePlacer object to help us chop up the picture and place the tiles
+		final PuzzlePlacer chopUp = new PuzzlePlacer(puzzle, tiles, blackbox, this, picture, this.getApplicationContext());
 		final Gameplay curGame = new Gameplay(tiles);
-
-		// get the size of the resized picture
-		int[] bmp_size = chopUp.getSize();
 
 		// create a (random) array
 		curGame.createRandomArray(false);
 		order = curGame.getOrder();
-		// create a scaled bitmap to use for the puzzle
-		Bitmap puzzle_res = Bitmap.createScaledBitmap(puzzle, bmp_size[0], bmp_size[1], false);
-		chopUp.setPuzzle(puzzle_res);
-
+		
 		// place pictures in the right order
-		placePictures(chopUp, curGame);
+		chopUp.placePictures(curGame, order, start);
 
 		// wait for three seconds
 		new Handler().postDelayed(new Runnable() {
@@ -82,7 +91,7 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 				order = curGame.getOrder();
 				start = true;
 				layout.removeAllViews();
-				placePictures(chopUp, curGame);
+				chopUp.placePictures(curGame, order, start);
 			}
 		}, 3000);
 	}
@@ -94,66 +103,66 @@ public class PuzzleGameActivity extends ActionBarActivity implements OnClickList
 		return true;
 	}
 
-	public void placePictures(BitmapHandler chopUp, Gameplay curGame)
-	{
-		// get the first X and Y coordinates on the screen
-		int firstX = chopUp.getFirstX();
-		int firstY = chopUp.getFirstY();
-
-		// get the sizes of each tile
-		int[] tileSizes = chopUp.getTileSize();
-		int tiles = chopUp.getTiles();
-
-		Bitmap puzzle_res = chopUp.getPuzzle();
-		Bitmap blackbox = chopUp.getBlack();
-
-		Bitmap cropped;
-
-		// create n tiles of the picture and one black tile
-		for (int i = 0; i < tiles; i++)
-		{
-			// I define xCoordinate and x_pic here to save memory
-			int xCoordinate = firstX + (tileSizes[0] + 7) * i;
-
-			for (int j = 0; j < tiles; j++)
-			{
-				int tile = order[tiles * i + j];
-				if (tile != 0)
-				{
-					int x_pic = tileSizes[0] * ((tile - 1) / tiles);
-					int y_pic = tileSizes[1] * ((tile - 1) % tiles);
-
-					cropped = Bitmap.createBitmap(puzzle_res, x_pic, y_pic, tileSizes[0], tileSizes[1]);
-				}
-				else
-				{
-					cropped = Bitmap.createBitmap(blackbox, 0, 0, tileSizes[0], tileSizes[1]);
-				}
-
-				// create an imageView for each tile (also the empty one)
-				ImageView imageView = new ImageView(this);
-				imageView.setTag(R.string.pos_clicked, tiles * i + j);
-				imageView.setTag(R.string.clicked, tile);
-				imageView.setTag(R.string.curGame, curGame);
-				imageView.setId(tiles * i + j);
-				imageView.setImageBitmap(cropped);
-
-				// create a relative layout
-				RelativeLayout root = (RelativeLayout)this.findViewById(R.id.root_layout);
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(tileSizes[0], tileSizes[1]);
-				int yCoordinate = firstY + (tileSizes[1] + 7) * j;
-				params.leftMargin = xCoordinate;
-				params.topMargin = yCoordinate;
-
-				// add the picture
-				root.addView(imageView, params);
-				if (start)
-				{
-					imageView.setOnClickListener(this);
-				}
-			}
-		}
-	}
+//	public void placePictures(BitmapHandler chopUp, Gameplay curGame)
+//	{
+//		// get the first X and Y coordinates on the screen
+//		int firstX = chopUp.getFirstX();
+//		int firstY = chopUp.getFirstY();
+//
+//		// get the sizes of each tile
+//		int[] tileSizes = chopUp.getTileSize();
+//		int tiles = chopUp.getTiles();
+//
+//		Bitmap puzzle_res = chopUp.getPuzzle();
+//		Bitmap blackbox = chopUp.getBlack();
+//
+//		Bitmap cropped;
+//
+//		// create n tiles of the picture and one black tile
+//		for (int i = 0; i < tiles; i++)
+//		{
+//			// I define xCoordinate and x_pic here to save memory
+//			int xCoordinate = firstX + (tileSizes[0] + 7) * i;
+//
+//			for (int j = 0; j < tiles; j++)
+//			{
+//				int tile = order[tiles * i + j];
+//				if (tile != 0)
+//				{
+//					int x_pic = tileSizes[0] * ((tile - 1) / tiles);
+//					int y_pic = tileSizes[1] * ((tile - 1) % tiles);
+//
+//					cropped = Bitmap.createBitmap(puzzle_res, x_pic, y_pic, tileSizes[0], tileSizes[1]);
+//				}
+//				else
+//				{
+//					cropped = Bitmap.createBitmap(blackbox, 0, 0, tileSizes[0], tileSizes[1]);
+//				}
+//
+//				// create an imageView for each tile (also the empty one)
+//				ImageView imageView = new ImageView(this);
+//				imageView.setTag(R.string.pos_clicked, tiles * i + j);
+//				imageView.setTag(R.string.clicked, tile);
+//				imageView.setTag(R.string.curGame, curGame);
+//				imageView.setId(tiles * i + j);
+//				imageView.setImageBitmap(cropped);
+//
+//				// create a relative layout
+//				RelativeLayout root = (RelativeLayout)this.findViewById(R.id.root_layout);
+//				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(tileSizes[0], tileSizes[1]);
+//				int yCoordinate = firstY + (tileSizes[1] + 7) * j;
+//				params.leftMargin = xCoordinate;
+//				params.topMargin = yCoordinate;
+//
+//				// add the picture
+//				root.addView(imageView, params);
+//				if (start)
+//				{
+//					imageView.setOnClickListener(this);
+//				}
+//			}
+//		}
+//	}
 
 	// handle the clicks on every tile
 	public void onClick(View v) {

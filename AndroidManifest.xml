@@ -3,7 +3,10 @@
     package="nl.mprog.projects.nPuzzle5789397"
     android:versionCode="1"
     android:versionName="1.0" >
-
+    
+	<uses-permission 
+	    android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
@@ -26,7 +29,7 @@
         <activity
             android:name=".PuzzleGameActivity"
             android:label="@string/back"
-            android:parentActivityName="nl.mprog.projects.nPuzzle5789397.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -35,7 +38,16 @@
         <activity
             android:name=".PuzzleSolvedActivity"
             android:label="@string/back"
-            android:parentActivityName="nl.mprog.projects.nPuzzle5789397.MainActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.mprog.projects.nPuzzle5789397.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ManipulateActivity"
+            android:label="@string/title_activity_manipulate"
+            android:parentActivityName=".MainActivity" 
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -46,7 +46,7 @@ public class PuzzleSolvedActivity extends ActionBarActivity {
 		Bitmap puzzle = BitmapFactory.decodeResource(this.getResources(), picture);
 
 		// create a new BitmapHandle object to
-		BitmapHandler fullPicture = new BitmapHandler(width_scr, height_scr, puzzle);
+		BitmapPlacer fullPicture = new BitmapPlacer(puzzle, this.getApplicationContext(), this);
 
 		// get the size of the resized picture
 		int[] bmp_size = fullPicture.getSize();

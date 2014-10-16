@@ -17,6 +17,7 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
+        public static final int manipulations=0x7f0c0001;
         public static final int pictures=0x7f0c0000;
     }
     public static final class attr {
@@ -1081,10 +1082,11 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int ajax=0x7f020057;
-        public static final int blackbox=0x7f020058;
-        public static final int ic_launcher=0x7f020059;
-        public static final int polder=0x7f02005a;
-        public static final int universum=0x7f02005b;
+        public static final int balloon=0x7f020058;
+        public static final int blackbox=0x7f020059;
+        public static final int ic_launcher=0x7f02005a;
+        public static final int polder=0x7f02005b;
+        public static final int universum=0x7f02005c;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1209,18 +1211,20 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int activity_puzzle_game=0x7f030019;
-        public static final int activity_puzzle_solved=0x7f03001a;
-        public static final int list_item=0x7f03001b;
-        public static final int listview_layout=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int activity_manipulate=0x7f030019;
+        public static final int activity_puzzle_game=0x7f03001a;
+        public static final int activity_puzzle_solved=0x7f03001b;
+        public static final int list_item=0x7f03001c;
+        public static final int listview_layout=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
-        public static final int puzzle_game=0x7f0d0001;
-        public static final int puzzle_solved=0x7f0d0002;
-        public static final int puzzle_start=0x7f0d0003;
-        public static final int puzzle_start_test=0x7f0d0004;
+        public static final int manipulate=0x7f0d0001;
+        public static final int puzzle_game=0x7f0d0002;
+        public static final int puzzle_solved=0x7f0d0003;
+        public static final int puzzle_start=0x7f0d0004;
+        public static final int puzzle_start_test=0x7f0d0005;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1273,16 +1277,18 @@ containing a value of this type.
         public static final int hard=0x7f0a001b;
         public static final int hello_world=0x7f0a000e;
         public static final int main_text=0x7f0a0010;
+        public static final int manipulate_cont=0x7f0a001f;
         public static final int medium=0x7f0a001a;
         public static final int order=0x7f0a0014;
         public static final int pos_clicked=0x7f0a0013;
         public static final int super_easy=0x7f0a0018;
         public static final int super_hard=0x7f0a001c;
         public static final int text_main=0x7f0a001d;
-        public static final int title_activity_puzzle_game=0x7f0a0020;
-        public static final int title_activity_puzzle_solved=0x7f0a0022;
-        public static final int title_activity_puzzle_start=0x7f0a001f;
-        public static final int title_activity_puzzle_start_test=0x7f0a0021;
+        public static final int title_activity_manipulate=0x7f0a0024;
+        public static final int title_activity_puzzle_game=0x7f0a0021;
+        public static final int title_activity_puzzle_solved=0x7f0a0023;
+        public static final int title_activity_puzzle_start=0x7f0a0020;
+        public static final int title_activity_puzzle_start_test=0x7f0a0022;
         public static final int xCoordinate=0x7f0a0016;
         public static final int yCoordinate=0x7f0a0017;
     }

@@ -19,16 +19,30 @@
     <string name="super_hard">Super hard</string>
     <string name="text_main">Pick a picture</string>
     <string name="back">Back to main</string>
+    <string name="manipulate_cont">Just for id</string>
 
     <string-array name="pictures">
         <item>Ajax</item>
         <item>Polder</item>
+        <item>Ballon</item>
         <item>Universum</item>
+    </string-array>
+    
+    <string-array name="manipulations">
+        <item>B/W</item>
+        <item>Grey</item>
+        <item>Red 1</item>
+        <item>Green 1</item>
+        <item>Blue 1</item>
+        <item>Red 2</item>
+        <item>Green 2</item>
+        <item>Blue 2</item>
     </string-array>
 
     <string name="title_activity_puzzle_start">PuzzleStart</string>
     <string name="title_activity_puzzle_game">PuzzleGame</string>
     <string name="title_activity_puzzle_start_test">PuzzleStartTest</string>
     <string name="title_activity_puzzle_solved">PuzzleSolved</string>
+    <string name="title_activity_manipulate">ManipulateActivity</string>
 
 </resources>

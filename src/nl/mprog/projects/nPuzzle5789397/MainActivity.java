@@ -22,6 +22,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
 	int[] picture_id = new int[]{
 					R.drawable.ajax,
 					R.drawable.polder,
+					R.drawable.balloon,
 					R.drawable.universum
 	};
 
@@ -36,7 +37,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
 		// each row in the list stores picture and picture name
 		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
-		for(int i = 0; i < 3; i++){
+		for(int i = 0; i < 4; i++){
 			HashMap<String, String> hm = new HashMap<String,String>();
 			hm.put("txt", pictures[i]);
 			hm.put("picid", Integer.toString(picture_id[i]) );
@@ -66,10 +67,9 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		Intent intent= new Intent(this, PuzzleGameActivity.class);
+		Intent intent= new Intent(this, ManipulateActivity.class);
 		String picture = Integer.toString(picture_id[position]);
 		intent.putExtra("picture", picture);
-		intent.putExtra("difficulty", "4");
 		startActivity(intent);
 		finish(); 
 	}
