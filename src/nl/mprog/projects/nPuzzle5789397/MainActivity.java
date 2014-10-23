@@ -5,19 +5,14 @@
 
 package nl.mprog.projects.nPuzzle5789397;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
-public class MainActivity extends ListActivity implements AdapterView.OnItemClickListener{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 	// get the picture id's
 	int[] picture_id = new int[]{
 					R.drawable.ajax,
@@ -25,7 +20,9 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
 					R.drawable.balloon,
 					R.drawable.universum
 	};
-
+	
+	Button button;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -34,43 +31,30 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
 
 		String[] pictures = this.getResources().getStringArray(R.array.pictures);
 
-		// each row in the list stores picture and picture name
-		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
+		// create a PictureList object which only loads small enough pictures
+		// to save memory.
+		PictureList list = new PictureList(this.getApplicationContext(), this);
 
-		for(int i = 0; i < 4; i++){
-			HashMap<String, String> hm = new HashMap<String,String>();
-			hm.put("txt", pictures[i]);
-			hm.put("picid", Integer.toString(picture_id[i]) );
-			aList.add(hm);
+		int n = picture_id.length;
+		for(int i = 0; i < n; i++)
+		{
+			button = list.addListItem(picture_id[i], pictures[i], i);
+			button.setOnClickListener(this);
 		}
 
-		// keys used in Hashmap
-		String[] from = {"picid", "txt"};
-
-		// ids of views in list_item
-		int[] to = {R.id.picid, R.id.txt};
-
-		// instantiating an adapter to store each item
-		// R.layout.activity_main defines the layout of each item
-		SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), aList, R.layout.list_item, from, to);
-
-		// Getting a reference to listview of main.xml layout file
-		ListView listView = (ListView)findViewById(android.R.id.list);
-
-		// Setting the adapter to the listView
-		listView.setAdapter(adapter);
-
-		ListView list = this.getListView();
-
-		list.setOnItemClickListener(this);
 	}
 
+	// go to next activity on button click
 	@Override
-	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	public void onClick(View v) 
+	{
+		int clicked = (Integer) v.getId();
 		Intent intent= new Intent(this, ManipulateActivity.class);
-		String picture = Integer.toString(picture_id[position]);
+		String picture = Integer.toString(picture_id[clicked]);
 		intent.putExtra("picture", picture);
+		RelativeLayout root = (RelativeLayout) this.findViewById(R.id.root_layout);
+		root.removeAllViews();
 		startActivity(intent);
-		finish(); 
+		finish();
 	}
 }

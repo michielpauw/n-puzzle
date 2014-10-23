@@ -13,9 +13,10 @@ public class PuzzlePlacer extends BitmapPlacer{
 	private static Bitmap blackbox;
 	private static Activity activity;
 
-	public PuzzlePlacer(Bitmap bitmap, int tiles_in, Bitmap black, Activity activity_in, int puzzle_id_in, Context context) 
+	public PuzzlePlacer(int tiles_in, Bitmap black, Activity activity_in, Context context, Bitmap picture) 
 	{
-		super(bitmap, puzzle_id_in, context, activity_in);
+		// since the picture is saved as resized, I don't need to use BitmapLoader here
+		super(picture, context, activity_in);
 		tiles = tiles_in;
 		blackbox = black;
 		activity = activity_in;
@@ -39,13 +40,14 @@ public class PuzzlePlacer extends BitmapPlacer{
 		int width_res = sizes_bmp[0];
 		int height_res = sizes_bmp[1];
 
-		int width_tile = (int) (width_res / tiles - 7.5);
-		int height_tile = (int) (height_res / tiles - 7.5);
+		int width_tile = (int) ((width_res - 13) / tiles - 7.5);
+		int height_tile = (int) ((height_res - 13) / tiles - 7.5);
 
-		int[] tileSizes = new int[]{
+		int[] tileSizes = new int[]
+						{
 						width_tile,
 						height_tile
-		};
+						};
 
 		return tileSizes;
 	}

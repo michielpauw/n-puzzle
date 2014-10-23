@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -24,16 +23,16 @@ public class BitmapPlacer implements Parcelable {
 	private static String uri;
 
 	// constructors
-
-	public BitmapPlacer(Bitmap bitmap, int picture_id_in, Context context_in, Activity activity_in) 
+	public BitmapPlacer(int picture_id_in, Context context_in, Activity activity_in) 
 	{
+		context = context_in;
+		setDisplayMetrics();
+		activity = activity_in;
+		// required height is equal to required width, because all pictures are in landscape
+		Bitmap bitmap = BitmapLoader.loadBitmap(picture_id_in, width_scr, width_scr, activity);
 		height_bmp = bitmap.getHeight();
 		width_bmp = bitmap.getWidth();
-		picture_id = picture_id_in;
 		picture = bitmap;
-		context = context_in;
-		activity = activity_in;
-		setDisplayMetrics();
 		initResizedPic(picture);
 	}
 
@@ -42,13 +41,15 @@ public class BitmapPlacer implements Parcelable {
 		height_bmp = bitmap.getHeight();
 		width_bmp = bitmap.getWidth();
 		context = context_in;
+		picture = bitmap;
+		setResizedPicture(picture);
 	}
 
 	public void setResizedPicture(Bitmap bitmap)
 	{
 		picture_res = bitmap;
 	}
-	
+
 	public void setDisplayMetrics()
 	{
 		// get the display height and width
@@ -57,16 +58,30 @@ public class BitmapPlacer implements Parcelable {
 		width_scr = metrics.widthPixels;
 	}
 
+	public void setActivity(Activity activity_in)
+	{
+		activity = activity_in;
+	}
+
+	public static int getDisplayWidth(Context context_in)
+	{
+		// get the display height and width
+		DisplayMetrics metrics = context_in.getResources().getDisplayMetrics(); 
+		width_scr = metrics.widthPixels;
+		return width_scr;
+	}
+
 	public Bitmap getResizedPicture()
 	{
 		return picture_res;
 	}
-	
+
 	public Bitmap getPicture()
 	{
 		return picture;
 	}
-	
+
+	// set the original resized bitmap for future reference
 	public void initResizedPic(Bitmap bitmap)
 	{
 		int[] bmp_size = this.getSize();
@@ -82,12 +97,12 @@ public class BitmapPlacer implements Parcelable {
 	{
 		return height_scr;
 	}
-	
+
 	public void setUri(String uri_in)
 	{
 		uri = uri_in;
 	}
-	
+
 	public String getUri()
 	{
 		return uri;
@@ -111,7 +126,8 @@ public class BitmapPlacer implements Parcelable {
 	}
 
 	// a method to determine what the size of the picture should be
-	public int[] getSize() {
+	public int[] getSize() 
+	{
 
 		int height_res;
 		int width_res;
@@ -130,16 +146,18 @@ public class BitmapPlacer implements Parcelable {
 			width_res  = (int) Math.floor(width_bmp / resize_factor);
 		}
 
-		int[] sizes = new int[]{
+		int[] sizes = new int[]
+						{
 						width_res - 50,
 						height_res - 50
-		};
+						};
 
 		return sizes;
 	}
 
 	// a method to get the non-trivial first coordinate
-	public int getRelevantCoordinates() {
+	public int getRelevantCoordinates() 
+	{
 		boolean resize_vert = resizeVertically();
 		int[] sizes_bmp = getSize();
 
@@ -188,7 +206,8 @@ public class BitmapPlacer implements Parcelable {
 			return (height_scr - bmp_size[1]) / 2;
 		}
 	}
-	
+
+	// a method to place the bitmap in a certain activity
 	public void placeBitmap(Bitmap bitmap)
 	{
 		ImageView imageView = new ImageView(activity);
@@ -199,45 +218,55 @@ public class BitmapPlacer implements Parcelable {
 		// place the picture in the right place
 		RelativeLayout root = (RelativeLayout)activity.findViewById(R.id.root_layout);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(bmp_size[0], bmp_size[1]);
-		
+
 		params.leftMargin = this.getFirstX();
 		params.topMargin = this.getFirstY();
-		
+
 		// add the picture
 		root.addView(imageView, params);
 	}
 
-	protected BitmapPlacer(Parcel in) {
+	// a couple of methods that I use to send objects of this class in intents
+	protected BitmapPlacer(Parcel in) 
+	{
 		int[] data = new int[3];
 
 		in.readIntArray(data);
 		width_scr = data[0];
 		height_scr = data[1];
 		picture_id = data[2];
-		
+
 		uri = in.readString();
 	}
 
 	@Override
-	public int describeContents(){
+	public int describeContents()
+	{
 		return 0;
 	}
 
 	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeIntArray(new int[] {width_scr,
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		dest.writeIntArray(new int[] 
+						{
+						width_scr,
 						height_scr,
-						picture_id});
+						picture_id
+						});
 		dest.writeString(uri);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-		public BitmapPlacer createFromParcel(Parcel in) {
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() 
+	{
+		public BitmapPlacer createFromParcel(Parcel in) 
+		{
 			return new BitmapPlacer(in); 
 		}
 
-		public BitmapPlacer[] newArray(int size) {
+		public BitmapPlacer[] newArray(int size) 
+		{
 			return new BitmapPlacer[size];
 		}
 	};

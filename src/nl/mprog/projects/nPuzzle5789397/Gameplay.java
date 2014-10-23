@@ -3,15 +3,21 @@ package nl.mprog.projects.nPuzzle5789397;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 public class Gameplay {
 
 	private static int[] order;
 	private static int tiles;
+	int moves;
 
 	// constructor
 	public Gameplay(int tiles_in) {
 		tiles = tiles_in;
 		order = new int[tiles * tiles];
+		moves = 0;
 	}
 
 	// a couple of getter/setter methods
@@ -28,6 +34,11 @@ public class Gameplay {
 	public int[] getOrder()
 	{
 		return order;
+	}
+	
+	public int getMoves()
+	{
+		return moves;
 	}
 
 	// create a random array that is solvable
@@ -112,6 +123,46 @@ public class Gameplay {
 	{
 		order[pos_zero] = clicked;
 		order[pos_clicked] = 0;
+	}
+
+	public boolean handleClick(int pos_clicked, Activity activity)
+	{
+		// get other relevant information
+		int tiles = getTiles();
+
+		int clicked = order[pos_clicked];
+		int pos_zero = -1;
+		int n = tiles * tiles;
+		for (int i = 0; i < n; i++)
+		{
+			if (order[i] == 0)
+			{
+				pos_zero = i;
+			}
+		}
+
+		// check whether the move is legal
+		boolean legal = legalMove(clicked, pos_clicked, pos_zero);
+
+		// if so, switch the tiles both visually and in the array
+		if (legal)
+		{
+			// keep track of the moves
+			moves++;
+
+			ImageView view_click = (ImageView) activity.findViewById(pos_clicked);
+			Drawable clicked_on = view_click.getDrawable();
+
+			ImageView view_zero = (ImageView) activity.findViewById(pos_zero);
+			Drawable black = view_zero.getDrawable();
+
+			view_zero.setImageDrawable(clicked_on);
+			view_click.setImageDrawable(black);
+
+			switchPictures(clicked, pos_zero, pos_clicked);
+			order = getOrder();
+		}
+		return solved();
 	}
 
 	// check whether the puzzle is solved
