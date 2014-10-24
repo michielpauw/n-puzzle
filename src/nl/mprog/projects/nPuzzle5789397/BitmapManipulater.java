@@ -22,6 +22,7 @@ public class BitmapManipulater extends BitmapPlacer {
 	private static int[] manipulate_large;
 	private static int[] manipulate_large_original;
 	private static int[] manipulate_change;
+	private static int manipulation_tracker;
 
 	// some variables to be able to undo manipulations
 	private static int[] which_manipulation;
@@ -52,10 +53,15 @@ public class BitmapManipulater extends BitmapPlacer {
 	{
 		return bitmap_ready;
 	}
-	
+
 	public Bitmap getBitmapSmall()
 	{
 		return bitmap_small;
+	}
+
+	public void setManipulationTracker(int man_in)
+	{
+		manipulation_tracker = man_in;
 	}
 
 	// the bitmap we place after it has been manipulated
@@ -116,7 +122,7 @@ public class BitmapManipulater extends BitmapPlacer {
 		float i = (float) 0.4;
 		float j = (float) 0.4;
 		matrix.setScale(i, j);
-		
+
 		// the -6 is to correct for rounding errors
 		Bitmap bitmap_man = Bitmap.createBitmap(bitmap, 0, 0, width_res - 6, height_res - 6, matrix, true);
 		shrunk_width = bitmap_man.getWidth();
@@ -210,17 +216,17 @@ public class BitmapManipulater extends BitmapPlacer {
 						manipulate_change[i] = Color.rgb(255, 255, 255);
 					}
 					break;
-				// change every pixel to a shade of grey
+					// change every pixel to a shade of grey
 				case 1:
 					int grey = (int) (((0.1140 * blue + 0.5870 * green + 0.2989 * red) / 100) * value);
 					manipulate_change[i] = Color.rgb(grey, grey, grey);
 					break;
-				// do the first color manipulation
+					// do the first color manipulation
 				case 2: case 3: case 4:
 					int[] values = colorOne(value, manipulation, i, small);
 					manipulate_change[i] = Color.rgb(values[0], values[1], values[2]);
 					break;
-				// do the second color manipulation
+					// do the second color manipulation
 				case 5: case 6: case 7:
 					int[] values_two = colorTwo(value, manipulation, i, small);
 					manipulate_change[i] = Color.rgb(values_two[0], values_two[1], values_two[2]);
@@ -234,11 +240,11 @@ public class BitmapManipulater extends BitmapPlacer {
 		{
 			// create a small bitmap from the manipulated pixels
 			bitmap_small = createBitmapFromPixels(manipulate_change, shrunk_width, shrunk_height);
-			
+
 			// blow up this bitmap, so it fills the screen
 			bitmap_ready = blowUpBitmap(bitmap_small);
 			this.setBitmapReady(bitmap_ready);
-			
+
 			// place the bitmap
 			this.placeBitmap(bitmap_ready);
 		}
@@ -354,7 +360,7 @@ public class BitmapManipulater extends BitmapPlacer {
 		int blue;
 		int red;
 		int green;
-		
+
 		// get the original bitmaps, which we base the manipulation on
 		if (small)
 		{
@@ -463,7 +469,7 @@ public class BitmapManipulater extends BitmapPlacer {
 	public void undo()
 	{
 		boolean didSomething = false;
-		
+
 		// get the value of the last manipulation
 		if (current_value > 0)
 		{
@@ -474,19 +480,14 @@ public class BitmapManipulater extends BitmapPlacer {
 			current_value = 9;
 		}
 
-		int k = value_manipulation.length;
-		for (int j = 0; j < k; j++)
+		setManipulationTracker(which_manipulation[current_value]);
+		manipulation = manipulation_tracker;
+		int value = value_manipulation[current_value];
+		if (value > 0)
 		{
-			increaseCurrentValue();
-			manipulation = which_manipulation[current_value];
-			int value = value_manipulation[current_value];
-			if (value > 0)
-			{
-				iteratePixels(value_manipulation[j], true, true);
-				didSomething = true;
-			}
+			iteratePixels(value, true, true);
+			didSomething = true;
 		}
-		
 		// if there was nothing to undo, make sure all the arrays are in the right spot
 		if (!didSomething && current_value < 9)
 		{
@@ -512,11 +513,12 @@ public class BitmapManipulater extends BitmapPlacer {
 		for (int j = 0; j < k; j++)
 		{
 			increaseCurrentValue();
-			manipulation = which_manipulation[current_value];
+			setManipulationTracker(which_manipulation[current_value]);
+			manipulation = manipulation_tracker;
 			int value = value_manipulation[current_value];
 			if (value > 0)
 			{
-				iteratePixels(value_manipulation[j], false, false);
+				iteratePixels(value, false, false);
 			}
 		}
 

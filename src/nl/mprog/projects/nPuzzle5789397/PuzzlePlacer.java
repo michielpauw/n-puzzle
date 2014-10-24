@@ -40,8 +40,19 @@ public class PuzzlePlacer extends BitmapPlacer{
 		int width_res = sizes_bmp[0];
 		int height_res = sizes_bmp[1];
 
-		int width_tile = (int) ((width_res - 13) / tiles - 7.5);
-		int height_tile = (int) ((height_res - 13) / tiles - 7.5);
+		int width_tile;
+		int height_tile;
+		
+		if (tiles == 2)
+		{
+			width_tile = (int) ((width_res - 13) / tiles - 7.5);
+			height_tile = (int) ((height_res - 13) / tiles - 7.5);
+		}
+		else
+		{
+			width_tile = (int) ((width_res) / tiles - 7.5);
+			height_tile = (int) ((height_res) / tiles - 7.5);
+		}
 
 		int[] tileSizes = new int[]
 						{

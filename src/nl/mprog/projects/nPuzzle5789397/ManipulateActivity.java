@@ -164,6 +164,7 @@ public class ManipulateActivity extends ActionBarActivity implements View.OnClic
 		}
 		int pos = spinner.getSelectedItemPosition();
 		fullPicture.setSelectedManipulation(pos);
+		fullPicture.setManipulationTracker(pos);
 		int value = seekBar.getProgress();
 		ImageView existing_view = (ImageView) findViewById(1);
 		existing_view.setImageResource(0);
